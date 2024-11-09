@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 
 function VerificationPage() {
-  // State variables for managing form inputs and messages
   const [message, setMessage] = useState({ text: '', type: '' });
   const [token, setToken] = useState({
     token1: '',
@@ -15,33 +14,27 @@ function VerificationPage() {
     token6: '',
   });
   const [isDisabled, setIsDisabled] = useState(true);
-  const [counter, setCounter] = useState(10); // Countdown timer starting at 10 seconds
-  const [canResend, setCanResend] = useState(false); // Can the user resend the code?
+  const [counter, setCounter] = useState(10);
+  const [canResend, setCanResend] = useState(false);
 
-  const router = useRouter(); // For navigation after successful verification
-
-  // Refs for each input field to easily focus the next input
+  const router = useRouter();
   const inputRefs = useRef([]);
 
-  // Handle input change (only allowing numbers)
   const handleChange = (e, index) => {
     const { name, value } = e.target;
 
-    // Only allow single digit entry
     if (value.match(/^[0-9]$/)) {
       setToken({
         ...token,
         [name]: value,
       });
 
-      // Move to the next input field if there is one
       if (index < 5) {
         inputRefs.current[index + 1].focus();
       }
     }
   };
 
-  // Handle backspace to move focus to the previous field if it's empty
   const handleKeyDown = (e, index) => {
     const { name, value } = e.target;
 
@@ -51,7 +44,6 @@ function VerificationPage() {
           inputRefs.current[index - 1].focus();
         }
       } else {
-        // Clear the current token input if there's a value
         setToken({
           ...token,
           [name]: '',
@@ -60,11 +52,9 @@ function VerificationPage() {
     }
   };
 
-  // Handle paste of the code (allow 6 digits)
   const handlePaste = (e) => {
     const pasteData = e.clipboardData.getData('text');
 
-    // If the pasted data is exactly 6 digits, populate the token state
     if (pasteData.length === 6 && /^[0-9]{6}$/.test(pasteData)) {
       const newToken = {
         token1: pasteData[0],
@@ -75,13 +65,10 @@ function VerificationPage() {
         token6: pasteData[5],
       };
       setToken(newToken);
-
-      // Focus on the last input field
       inputRefs.current[5].focus();
     }
   };
 
-  // Submit verification request to the backend
   const handleClick = async () => {
     try {
       const response = await fetch('/api/verification', {
@@ -94,10 +81,9 @@ function VerificationPage() {
 
       const data = await response.json();
 
-      // Handle success or error messages based on the response
       if (response.ok) {
         setMessage({ text: data.message, type: 'success' });
-        router.push('/login'); // Redirect after successful verification
+        router.push('/login');
       } else {
         setMessage({ text: data.message, type: 'error' });
       }
@@ -106,38 +92,35 @@ function VerificationPage() {
     }
   };
 
-  // Enable/disable the verify button if all token fields are filled
+  // Updated useEffect to check if all token inputs are filled
   useEffect(() => {
-    const { token1, token2, token3, token4, token5, token6 } = token;
-    setIsDisabled(!(token1 && token2 && token3 && token4 && token5 && token6));
-  }, []);
+    const allFilled = Object.values(token).every((value) => value !== '');
+    setIsDisabled(!allFilled);
+  }, [token]);
 
-  // Countdown timer for resend code functionality
   useEffect(() => {
     if (counter > 0) {
       const timer = setInterval(() => {
         setCounter((prev) => prev - 1);
       }, 1000);
 
-      return () => clearInterval(timer); // Clear timer when counter reaches 0
+      return () => clearInterval(timer);
     } else {
-      setCanResend(true); // Allow resend when countdown is over
+      setCanResend(true);
     }
   }, [counter]);
 
-  // Handle resend verification code
   const handleResend = async () => {
     try {
-      // Reset the timer
       setCounter(10);
       setCanResend(false);
 
-      const userId = localStorage.getItem('userId'); // Get the userId (email)
+      const userId = localStorage.getItem('userId');
 
       const response = await fetch('/api/resend-verification', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId }), // Send the userId to the backend
+        body: JSON.stringify({ userId }),
       });
 
       const data = await response.json();
@@ -161,19 +144,18 @@ function VerificationPage() {
         </p>
       )}
 
-      {/* Token Inputs */}
       <div className="text-xl mt-4 flex gap-2 mb-10">
         {['token1', 'token2', 'token3', 'token4', 'token5', 'token6'].map(
           (field, index) => (
             <input
               key={index}
-              ref={(el) => (inputRefs.current[index] = el)} // Assign refs to inputs
+              ref={(el) => (inputRefs.current[index] = el)}
               type="text"
               name={field}
               value={token[field]}
-              onChange={(e) => handleChange(e, index)} // Handle value change
-              onKeyDown={(e) => handleKeyDown(e, index)} // Handle key events
-              onPaste={handlePaste} // Handle paste functionality
+              onChange={(e) => handleChange(e, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              onPaste={handlePaste}
               className="w-14 py-4 rounded-md bg-[#f5f5f5] text-center"
               maxLength={1}
               required
@@ -182,29 +164,27 @@ function VerificationPage() {
         )}
       </div>
 
-      {/* Verify Button */}
       <button
         type="button"
-        disabled={isDisabled} // Disable button if not all token fields are filled
+        disabled={isDisabled}
         className={`${
           isDisabled ? 'bg-gray-300 text-black opacity-70' : 'bg-black text-white'
         } py-3 px-6 w-[370px] rounded-md font-bold`}
-        onClick={handleClick} // Trigger verification on click
+        onClick={handleClick}
       >
         Verify Email
       </button>
 
-      {/* Resend Section */}
       <div className="mt-5 flex gap-2">
         <p>Didn&apos;t receive the code?</p>
         <button
-          onClick={handleResend} // Handle resend button click
-          disabled={!canResend} // Disable if resend is not allowed
+          onClick={handleResend}
+          disabled={!canResend}
           className={`${
             canResend ? 'text-blue-500' : 'text-gray-500 cursor-not-allowed'
           }`}
         >
-          {canResend ? 'Resend Code' : `Resend in ${counter}s`} {/* Show countdown */}
+          {canResend ? 'Resend Code' : `Resend in ${counter}s`}
         </button>
       </div>
     </div>
