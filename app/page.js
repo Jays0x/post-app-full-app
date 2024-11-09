@@ -13,7 +13,7 @@ export default function Home() {
       className="rounded-lg mb-10"
       />
 
-     <h1 className="text-4xl mb-3 tracking-tight">Easy create a post for your love one</h1>
+     <h1 className="text-4xl mb-3 tracking-tight">Easily create a post for your love one</h1>
      <p className="mb-10">
        Here is a platform to create a post for your favorite people
      </p>
