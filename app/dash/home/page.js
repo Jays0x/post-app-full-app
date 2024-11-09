@@ -60,7 +60,7 @@ function Page() {
     <div className='flex flex-col items-center justify-center min-h-[100vh] font-[family-name:var(--font-geist-sans)]'>
       <h1 className='text-4xl mb-10 font-semibold tracking-tight'>List of all posts</h1>
 
-      <div className='grid grid-cols-3 gap-5 mb-20 justify-center items-center'>
+      <div className='grid grid-cols-3 mx-auto gap-5 mb-20 justify-center items-center'>
         {allPosts.length > 0 ? (
           allPosts.map((post) => (
             <div key={post._id} className='bg-[#fff] border border-black border-opacity-10 p-4 rounded-lg w-[300px]'>
@@ -78,7 +78,7 @@ function Page() {
             </div>
           ))
         ) : (
-          <div className='mb-10 text-center'>
+          <div className='absolute mx-auto text-center ml-[-72px]'>
             <h1 className='text-[20px] mb-2'>No posts yet</h1>
             <p>Fetching all your posts here</p>
           </div>

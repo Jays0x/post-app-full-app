@@ -30,7 +30,7 @@ function Page() {
       // Redirect to login if token is missing
       router.push('/login');
     }
-  }, [token]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -13,8 +13,8 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Auth | Easy access with secure authentication",
-  description: "This is a simple authentication application",
+  title: "Feed | Easy post, one at a time",
+  description: "Post anything to your love ones",
 };
 
 export default function RootLayout({ children }) {
