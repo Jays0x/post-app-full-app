@@ -57,7 +57,7 @@ function Page() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-[100vh] font-[family-name:var(--font-geist-sans)]'>
+    <div className='flex flex-col items-center justify-center min-h-[100vh] font-[family-name:var(--font-geist-sans)] px-5'>
       <h1 className='lg:text-4xl text-[30px] mb-10 font-semibold tracking-tight mt-10'>List of all posts</h1>
 
       <div className='grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 mx-auto gap-5 mb-20 justify-center items-center'>

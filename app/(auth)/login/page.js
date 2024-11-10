@@ -86,7 +86,7 @@ function Page() {
   }, [formData]);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[100vh] font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col justify-center items-center w-full h-[100vh] font-[family-name:var(--font-geist-sans)] px-5">
       <div className="mb-10 text-center">
         <h1 className="lg:text-4xl text-[30px] font-bold mb-3">Welcome back</h1>
         <p>Kindly login to your account</p>

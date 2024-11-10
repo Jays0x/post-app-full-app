@@ -131,7 +131,7 @@ function VerificationPage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-[100vh]">
+    <div className="flex flex-col justify-center items-center h-[100vh] px-5">
       <h1 className="lg:text-4xl text-[30px] font-bold mb-5">Email Verification</h1>
 
       {message.text && (

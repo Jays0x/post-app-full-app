@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="h-[100vh] flex flex-col justify-center items-center font-[family-name:var(--font-geist-sans)]">
+    <div className="h-[100vh] px-5 flex flex-col justify-center items-center font-[family-name:var(--font-geist-sans)]">
 
       <Image  
       src='/avatar.png' 

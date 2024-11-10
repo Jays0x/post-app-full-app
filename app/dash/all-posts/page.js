@@ -76,7 +76,7 @@ function Page() {
   }, [postData])  // Dependency on postData to check if both fields are filled
 
   return (
-    <div className='flex flex-col items-center justify-center h-[100vh] font-[family-name:var(--font-geist-sans)]'>
+    <div className='flex flex-col items-center justify-center h-[100vh] font-[family-name:var(--font-geist-sans)] px-5'>
 
       <h1 className='text-2xl mb-10 font-semibold tracking-tight'>What&apos;s Happening?</h1>
 
