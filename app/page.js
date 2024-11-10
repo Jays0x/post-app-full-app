@@ -13,12 +13,12 @@ export default function Home() {
       className="rounded-lg mb-10"
       />
 
-     <h1 className="text-4xl mb-3 tracking-tight">Easily create a post for your love one</h1>
+     <h1 className="lg:text-4xl text-[30px] mb-3 tracking-tight">Easily create a post for your love one</h1>
      <p className="mb-10">
        Here is a platform to create a post for your favorite people
      </p>
 
-     <div className='flex gap-4'>
+     <div className='flex lg:flex-row gap-4 flex-col'>
         <Link href='/login'
           className='bg-transparent px-10 hover:bg-[#f5f5f5] text-center border border-black border-opacity-10 py-3 rounded-md'
         >

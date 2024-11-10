@@ -58,9 +58,9 @@ function Page() {
 
   return (
     <div className='flex flex-col items-center justify-center min-h-[100vh] font-[family-name:var(--font-geist-sans)]'>
-      <h1 className='text-4xl mb-10 font-semibold tracking-tight'>List of all posts</h1>
+      <h1 className='lg:text-4xl text-[30px] mb-10 font-semibold tracking-tight mt-10'>List of all posts</h1>
 
-      <div className='grid grid-cols-3 mx-auto gap-5 mb-20 justify-center items-center'>
+      <div className='grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 mx-auto gap-5 mb-20 justify-center items-center'>
         {allPosts.length > 0 ? (
           allPosts.map((post) => (
             <div key={post._id} className='bg-[#fff] border border-black border-opacity-10 p-4 rounded-lg w-[300px]'>
@@ -85,7 +85,7 @@ function Page() {
         )}
       </div>
 
-      <div className='flex gap-4'>
+      <div className='flex lg:flex-row flex-col-reverse gap-4 mb-10'>
         <button
           onClick={handleLogout}
           className='bg-transparent px-10 hover:bg-[#f5f5f5] text-center border border-black border-opacity-10 py-3 rounded-md'
